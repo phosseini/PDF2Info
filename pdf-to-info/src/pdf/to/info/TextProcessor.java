@@ -41,21 +41,7 @@ public class TextProcessor {
         return "No value found!";
     }
 
-    private String GenerateKeyRegex(String key) {
-        String keyRegex = "";
-
-        for (int i = 0; i < key.length(); i++) {
-            if (Character.isLowerCase(key.charAt(i))) {
-                keyRegex += Character.toString(key.charAt(i)).toUpperCase();
-            } else if (Character.isUpperCase(key.charAt(i))) {
-                keyRegex += Character.toString(key.charAt(i)).toLowerCase();
-            }
-            keyRegex += Character.toString(key.charAt(i));
-        }
-        return keyRegex;
-    }
-
-    public boolean IsMatchKey(String key, String line) {
+    private boolean IsMatchKey(String key, String line) {
         // Case: Getting full string for userKey (case insensitive) matches
         Pattern p1 = Pattern.compile(String.format("(?i)(.*%s.*\\s?.*:\\s*?.*)", key));
         Matcher matcher1 = p1.matcher(line);
