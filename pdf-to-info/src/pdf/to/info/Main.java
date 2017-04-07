@@ -18,9 +18,11 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         // First, we read text from the pdf file
+        //char character = ' '; int ascii = (int) character;
         PDF objPdf = new PDF();
         String pdfText = objPdf.ReadText(System.getProperty("user.dir") + "\\data\\sample_invoice.pdf");
         TextProcessor objTextProc = new TextProcessor();
+        //objTextProc.IsMatchKey("amount", "Total Amount: $1,000");
         System.out.print("Customer Name: " + objTextProc.ExtractFields(pdfText, "company") + "\n");
         System.out.print("Invoice Amount: " + objTextProc.ExtractFields(pdfText, "grand total") + "\n");
     }
