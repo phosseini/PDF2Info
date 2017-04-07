@@ -13,7 +13,7 @@ After reading the text from pdf file, now we are going to extract the informatio
 ## Method pipeline:
 
 ### A. Cleaning the text:
-first of all we should clean the text that we have already read from our pdf file. For example, the text contains many extra white space and new line characters that should be removed. After cleaning the text, we store all the useful lines of text as different items in a list.
+First of all we should clean the text that we have already read from our pdf file. For example, the text contains many extra white space and new line characters that should be removed. After cleaning the text, we store all the useful lines of text as different items in a list.
 
 ### B. Finding the pairs of field and value:
 After creating a cleaned list of all lines, we use regular expression in order to find the specific field that we are looking for and its corresponding value. For example, if we have a line like: "Total Amount: $1,000" by searching "total", "amount", or "total amount" we can find the field and the value associated with it from the pdf file.
