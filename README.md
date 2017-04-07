@@ -17,3 +17,6 @@ First of all we should clean the text that we have already read from our pdf fil
 
 ### B. Finding the pairs of field and value:
 After creating a cleaned list of all lines, we use regular expression in order to find the specific field that we are looking for and its corresponding value. For example, if we have a line like: "Total Amount: $1,000" by searching "total", "amount", or "total amount" we can find the field and the value associated with it from the pdf file.
+
+## How to run the project:
+Download the zip file of the repository, extract the zip file, and then cut and paste the JAR file named `pdf-to-info-v1.0.jar` to the `pdf-to-info` folder where the `data` folder exists. Be sure that you have a pdf file named `sample_invoice.pdf` in your `data` folder. After running the project, you can enter the search keys for two fields. For instance, you can enter `company` for the customer name search key and `total` as the invoice amount search key. Then press `Read Data` and you will see the results.
