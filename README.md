@@ -8,7 +8,7 @@ In the following, I am going to explain what we are going to do in this simple p
 In this project, I used the [PDFBox](https://pdfbox.apache.org/index.html) library to extract text from pdf files. PDFBox library is an open source Java tool for working with PDF documents. We have another tool named [iText](http://itextpdf.com/) which has good features, however, it is not free and that is why I preferred to use PDFBox in this project. 
 
 ## 2- Extracting information from text
-After reading the text from pdf file, now we are going to extract the information of two fields from our sample pdf file namely including: **Customer Name** and **Invoice Amount**. It is worth pointing out that if the pdf file contains some standard fields, we can use PDFBox to read the fieldType and fieldValue pairs (I have already added this method to the project.) However, since we do not have such field in current pdf file, I used another method extract our desired values and information.
+After reading the text from pdf file, now we are going to extract the information of two fields from our sample pdf file namely including: **Customer Name** and **Invoice Amount**. It is worth pointing out that if the pdf file contains some standard fields, we can use PDFBox to read the fieldType and fieldValue pairs (I have already added this method to the project.) However, since we do not have such fields in current pdf file, I used another method to extract our desired values and information.
 
 ## Method pipeline:
 
