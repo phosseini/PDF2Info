@@ -11,7 +11,14 @@ import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.io.RandomAccessFile;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
+import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
+import org.apache.pdfbox.pdmodel.interactive.form.*;
+import java.io.File;
+import java.util.*;
 
 /**
  *
@@ -19,41 +26,61 @@ import org.apache.pdfbox.text.PDFTextStripper;
  */
 public class PDF {
 
-    private PDFParser parser;
-    private PDFTextStripper pdfStripper;
-    private PDDocument pdDoc;
-    private COSDocument cosDoc;
-    private String Text;
-    private File file;
-
     /**
-     * We use this method to read the text from a PDF file
+     * Reading text from PDF file
      *
      * @param filePath
      * @return
      * @throws java.io.IOException
      */
-    public String Read(String filePath) throws IOException {
-        this.pdfStripper = null;
-        this.pdDoc = null;
-        this.cosDoc = null;
+    public String ReadText(String filePath) throws IOException {
+        PDFTextStripper pdfStripper = new PDFTextStripper();
+        return pdfStripper.getText(ReadPDDoc(filePath));
+    }
 
-        file = new File(filePath);
-        parser = new PDFParser(new RandomAccessFile(file, "r")); // update for PDFBox V 2.0
-
+    /**
+     * Creating a PDDocument object
+     *
+     * @param filePath
+     * @return
+     * @throws java.io.IOException
+     */
+    private PDDocument ReadPDDoc(String filePath) throws IOException {
+        File file = new File(filePath);
+        PDFParser parser = new PDFParser(new RandomAccessFile(file, "r")); // update for PDFBox V 2.0
         parser.parse();
-        cosDoc = parser.getDocument();
-        pdfStripper = new PDFTextStripper();
-        pdDoc = new PDDocument(cosDoc);
+        COSDocument cosDoc = parser.getDocument();
+        PDFTextStripper pdfStripper = new PDFTextStripper();
+        PDDocument pdDoc = new PDDocument(cosDoc);
         pdDoc.getNumberOfPages();
         pdfStripper.setStartPage(1);
         pdfStripper.setEndPage(1);
 
-       // reading text from page 1 to 10
-        // if you want to get text from full pdf file use this code
+        // for reading all pages of pdf file
         // pdfStripper.setEndPage(pdDoc.getNumberOfPages());
-        Text = pdfStripper.getText(pdDoc);
-        return Text;
+        return pdDoc;
+    }
+
+    /**
+     * Reading fields of a PDF file
+     *
+     * @param filePath
+     * @throws java.io.IOException
+     */
+    public void PdfFields(String filePath) throws IOException {
+        PDDocument pdDoc = ReadPDDoc(filePath);
+        PDAcroForm form = pdDoc.getDocumentCatalog().getAcroForm();
+        if (form != null) {
+            List FieldTy = form.getFields();
+            PDField pdfFields;
+            for (int i = 0; i < FieldTy.size(); i++) {
+                pdfFields = (PDField) FieldTy.get(i);
+                String fieldNameTyope = pdfFields.getFieldType();
+                System.out.println(fieldNameTyope);
+            }
+        } else {
+            System.out.print("There is no standard field in your PDF file.\n");
+        }
     }
 
 }

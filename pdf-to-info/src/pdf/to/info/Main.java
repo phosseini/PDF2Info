@@ -19,8 +19,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         // First, we read text from the pdf file
         PDF objPdf = new PDF();
-        String pdfText = objPdf.Read(System.getProperty("user.dir") + "\\data\\sample_invoice.pdf");
-        System.out.print(pdfText);
+        String pdfText = objPdf.ReadText(System.getProperty("user.dir") + "\\data\\sample_invoice.pdf");
+        TextProcessor objTextProc = new TextProcessor();
+        System.out.print("Customer Name: " + objTextProc.ExtractFields(pdfText, "company") + "\n");
+        System.out.print("Invoice Amount: " + objTextProc.ExtractFields(pdfText, "grand total") + "\n");
     }
-    
+
 }
